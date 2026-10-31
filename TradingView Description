@@ -1,0 +1,289 @@
+In true TradingView spirit, the creator of this script has made it open-source, so that traders can review and verify its functionality. Kudos to the author! While you can use it for free, remember that republishing the code is subject to TradingView House Rules.
+
+Absolute Dollar Agent — ULTRON Alpha
+Speculative Probabilistic Core · Zone Confidence · HTF Fib Projection
+
+Overview
+Absolute Dollar Agent (ULTRON Alpha) is a multi-timeframe market-analysis engine built around a single idea: that price can be read as a system of observable states, and that those states can be organized into a framework that helps you see structure, direction, momentum, volatility, and session context without one layer hiding another.
+
+This is not a signal tool. It is a way of seeing.
+
+Why This Exists
+This is a glass box augmented intelligence agent written as a Pine Script indicator. Each of those terms matters, so let me unpack them.
+
+Glass box means the opposite of a black box. Every formula, threshold, weighting relationship, and decision sequence is visible in the open source. The tooltips show node-by-node reasoning with ✓ or ✗ markers. Nothing is hidden. You are not asked to trust an opaque model. You are invited to read the logic.
+
+Augmented intelligence means the system enhances human judgment rather than replacing it. It does not predict. It does not execute. It organizes market information into observable states, scores conviction, grades zone confidence, and presents its reasoning. The decision remains yours.
+
+Agent means the system perceives, remembers, and scores. It perceives the market through structure, momentum, volatility, session context, liquidity, and Fib regime. It remembers recent events through an episodic memory buffer. It scores conviction through an 8-node discrete count and a 14-node continuous posterior. It narrates its perception through alerts and reports. It does not place orders. It does not have independent agency. It is a decision-support agent — an intelligence layer between you and the market.
+
+I built this for myself. I wanted a way to read the market not as a series of signals to react to, but as a set of observable states that could be read, understood, and reasoned about. Every layer in this script answers a question that the previous layer raised.
+
+The result is not a prediction engine. It is a spatial and contextual framework — a way of organizing price information so that structure, direction, momentum, volatility, and session context are all visible at once, without one hiding behind another.
+
+This is not artificial intelligence. It is not machine learning. It is not a trained model. It is a deterministic, transparent, rule-based system that applies established market concepts (ICT, SMC, Hull, RSI, ATR, Fibonacci) through a weighted fusion architecture — and shows you every step of the reasoning.
+
+The word "neural" appears in the interface as a descriptive label for the weighted fusion layer, not a reference to neural networks.
+
+I am publishing it open-source because I think this way of seeing is worth sharing. If you use it and find something in it, tell me. That is the only thing I am asking for.
+
+Built for GMT+3
+Most trading tools are built for New York or London. They render killzones and format timestamps in EST, and assume the trader is awake when the Western session opens. GMT+3 traders — in Kenya, Tanzania, Uganda, Ethiopia, Sudan, Egypt, Saudi Arabia, Kuwait, Qatar, Bahrain, Iraq, Moscow, Istanbul — have been borrowing tools designed for someone else's clock.
+
+This script was built the other way around.
+
+The default timezone is GMT+3 (East Africa Time). Every session block — Asia, London, NY AM, LDN-NY, NY PM — is tuned so the label on the chart matches the clock on the wall of a trader in Nairobi. Every timestamp in the HUD, every tooltip, every analysis report, every memory entry renders in GMT+3 by default. The timezone selector is there if you trade from elsewhere, but the default was chosen deliberately.
+
+The session windows are ICT-inspired, not literal ICT killzone boundaries. They cover the trading day a GMT+3 trader actually sees — from the Asian open to the New York close — without forcing mental time-zone translation every time you look at the chart.
+
+This is not a marketing angle. It is a design decision about who the tool is for.
+
+The Tooltips Are a Complete Trading Plan
+Most indicators give you a label. Hover it, and you get a name. Maybe a number. That is all.
+
+This script gives you a plan. Every signal label, every zone label, and every entry label carries a tooltip that contains everything you need to place and manage the trade — without opening a single additional panel.
+
+The signal tooltip — the full trade thesis
+Direction and score (x/8)
+
+Execution mode and product (Signal Only / Multipliers / Vanilla Options)
+
+Contract direction, multiplier, risk sizing
+
+Stop loss price, distance in both points and ticks
+
+TP1 / TP2 / TP3 prices with R multiples
+
+Fib regime — source, HTF timeframe, LTF and HTF states, bars since flip
+
+Gate pass/block status for both directions
+
+Posterior probabilities, probability edge, zone confidence
+
+Node-by-node reasoning — every confluence node shown with ✓ or ✗, so you can see exactly why this signal fired and exactly which nodes did not agree
+
+Active killzone, timestamp in GMT+3, direct chart link
+
+The entry tooltip — the execution slip
+Direction, entry mode, entry price, stop, three targets with distance, strike and expiry (options) or contract and multiplier (multipliers), and risk sizing. You could copy it into a broker order form.
+
+The zone tooltip — the spatial brief
+Zone direction, high, low, range, trail state, Ultron Gate state, LTF and HTF Fib regime, gate agreement, zone confidence, posterior.
+
+The intent is that a trader never has to look anywhere else. The chart shows you what is happening. The tooltip tells you what to do about it, and why. Whether you take the trade is still your decision — but the information is on the hover, in one place, and it is honest about what did and did not agree.
+
+The Three-Tier Architecture
+The single most important thing to understand about this script is its architecture. Without this frame, the 18 input groups are overwhelming. With it, they become navigable.
+
+Tier 1 · Observation — Everything is drawn, unconditionally
+Structure, zones, Fibs, killzones, liquidity, Hull bands, trail — all visible regardless of score. Nothing is hidden behind a gate. You always see the full picture. This is the foundation: the script does not decide for you what is worth looking at. It shows you everything, and you decide.
+
+Tier 2 · Judgement — An 8-node discrete confluence score
+Each node answers a yes/no question: Is the macro Hull bullish? Is the trail trending? Is price in an area of interest? Is momentum aligned? Is volume confirming? The score is a count — 0 to 8. It is transparent, auditable, and manually tunable. You can see exactly which nodes are contributing and which are not, because the tooltip on every signal label lists them line by line.
+
+Tier 2.5 · Speculation — A 14-node continuous fusion layer
+This runs in parallel with Tier 2. Instead of yes/no answers, each node outputs a bounded continuous value — a probability, not a verdict. The weights are configurable. The sigmoid temperature is configurable. The posterior is computed as raw_bull / (raw_bull + raw_bear), which is a proper fusion, not a count of green things. It answers a different question: not "is this structurally sound?" but "how much conviction does the system have?"
+
+Tier 3 · Execution — The Position Tool
+This fires only when Tier 2 clears. Entry mode (Signal Change / Trail Retest / Zone Retest), TP ladder, breakeven logic, and trail-flip exits are all managed here. It is optional, and it is off the critical path. You can use the entire analytical engine without ever turning this on.
+
+The Intraday Operator's Day
+This script was built for intraday trading. Not scalping in the casino sense — but the disciplined, top-down, momentum-driven execution that a full trading day can support.
+
+The day is a fractal. Every timeframe is nested inside a larger one, and the operator's job is to see the whole structure at once. Here is how the GMT+3 trading day is organized:
+
+Timeframe Candles per 24h Role in the Operator's Day
+H4 6 Regime context. The dominant direction. Used when executing on M15.
+H1 24 Intraday structure. The tide. Used when executing on M5.
+M15 96 Tactical structure. The wave. Used when executing on M5 and M1.
+M5 288 Execution structure. The ripple. Used when executing on M1.
+M1 1,440 Trigger structure. The splash. The operator's hand on the trigger.
+The execution hierarchy
+Execute on M1 → watch M5 and M15. The M5 confirms the trigger. The M15 confirms the tactical setup.
+
+Execute on M5 → watch M15 and H1. The M15 confirms the setup. The H1 confirms the tide.
+
+Execute on M15 → watch H1 and H4. The H1 confirms the tide. The H4 confirms the regime.
+
+This is why the script draws structure, zones, and Fib regime on every timeframe. It is designed to be read as a top-down system, not a single-timeframe signal.
+
+Holding time — dictated by the layers, not the clock
+When you enter a trade, you do not decide in advance how long to hold it. The layers do.
+
+The Macro Hull tells you which regime the market is in. As long as it is bullish on the timeframes you are watching, a long trade can stay open.
+
+The Trail tells you when the regime has flipped. When the trail flips against your position, the trade has reached its natural end.
+
+The Fib dominant trend tells you which higher-timeframe direction is the true current. When LTF Fib and HTF Fib agree with your entry, the trade is aligned. When either one turns against you, the trade is fighting the current.
+
+The holding time is the time during which all three layers remain aligned with your entry direction. The moment one of them disagrees, the operator reduces exposure, tightens the stop, or exits. This is not a clock-based rule — it is a state-based rule, and it is why the script shows all three layers simultaneously.
+
+The 24-hour rhythm
+A GMT+3 trader sees the day in five distinct windows:
+
+Asia (0300–0700) — Setup. Structure forms. Liquidity builds.
+
+London (0700–1100) — First pulse. Volatility returns. Direction usually begins to show.
+
+NY AM (1100–1500) — The main session. The highest-probability momentum window. Most of the day's range is defined here.
+
+LDN-NY overlap (1500–1900) — The second pulse. Reversals and continuations both appear. The most dangerous and the most rewarding window.
+
+NY PM (1900–2300) — The wind-down. Late-day trends and final sweep. Lower volume, higher noise.
+
+The HUD shows the active killzone at all times. The probabilistic fusion layer treats killzone context as a node. The zone confidence engine treats NY AM and LDN-NY as corroborating windows. This is why the session structure is not decorative — it feeds the agent's scoring.
+
+On alerts
+The script provides 16 native alertcondition() entries, plus a consolidated Telegram dispatcher.
+
+Important note on TradingView's platform: TradingView's free plan allows one active alert at a time. Running multiple simultaneous alerts requires a paid TradingView plan, and using the Telegram Agent requires a plan with webhook support.
+
+If you are an operator running the full intraday workflow across multiple pairs and timeframes, plan accordingly.
+
+The 18 Input Groups — A Glass Box of Augmented Intelligence
+This is the heart of ULTRON. The inputs are not just settings — they are the levers of an agent. Each group controls a specific dimension of market analysis, and together they form a complete, auditable intelligence system. You are not just using an indicator; you are operating it.
+
+The following sections explain each group, the logic behind it, and how it connects to the others.
+
+① Market Structure (CHoCH)
+Logic: This is the structural eye. It detects changes of character (CHoCH) using pivot points, identifying when the market's directional bias may be shifting. The Zone Quality Gate is critical: it filters out weak, noisy CHoCH zones using ATR-based width checks, HTF agreement requirements, and an extension guard that prevents signals from firing at the top or bottom of an extended move. This directly addresses the classic trap of buying tops and selling bottoms.
+
+How it relates: The CHoCH signal is a primary input to the confluence score (Node 4) and is the anchor for the Buy/Sell Zone Projection (Group 3). It is also gated by the Fib Intelligence Gate (Group 17) and the Ultron Gate (Group 6).
+
+② Fibonacci Rendering
+Logic: The script renders standard Fibonacci retracement levels (0, 0.382, 0.5, 0.618, 0.786, 1) on the chart. These are mathematical constants, not proprietary formulas. They provide spatial reference points for where price might find support or resistance.
+
+How it relates: These levels are purely observational. They do not feed the scoring or fusion layers directly, but they inform your judgment when combined with the zone projections and the HTF Fibonacci Projection (Group 3).
+
+③ Buy/Sell Zone Projection
+Logic: This is the spatial heart of the script. When a CHoCH is detected, this group draws the active zone, its equilibrium line (Z·EQ), and a ladder of step lines extending outward at 0.5, 1.0, 1.5, 2.0, 3.0, and 4.0 multiples of the zone's range. It also integrates MTF CHoCH Confluence (a star on the zone label when the confluence timeframe agrees) and HTF Fibonacci Projection (a regime-anchored grid redrawn on the last bar).
+
+How it relates: The zone's high and low define the AOI (Area of Interest) for the confluence score. The Zone Confidence Engine (part of Tier 2.5) evaluates the zone based on eight corroborating factors and assigns a star rating (⭐ / ⭐⭐ / ⭐⭐⭐). The zone also defines the "Zone Retest" entry mode for the Position Tool (Group 9).
+
+④ Hull Suite
+Logic: The Hull Moving Average (HMA) and its variants (EHMA, THMA) are smoothed perception lenses. The Macro Hull (default length 200) is the regime lens — it tells you the broad direction. The Fast Hull (default length 21) is the tactical lens — it tells you shorter-term momentum. When they disagree, the market is transitioning.
+
+How it relates: Hull direction feeds two nodes in the 8-node confluence score (Nodes 1 and 2) and two nodes in the 14-node probabilistic fusion layer. It also informs the Trail Engine's gray-out logic (Group 5) and the RSI Smart Signals gating (Group 12).
+
+⑤ Trail Engine
+Logic: A chandelier-style stop anchored to a smoothed MA and cast outward by ATR. Trend flips are the primary trigger. The Alpha Gate uses EMA 21/55 as a permission layer to prevent wick-driven whipsaws — without it, the trail would flip on every minor spike.
+
+How it relates: The trail trend is a direct input to the confluence score (Node 3) and the probabilistic fusion. It is also the basis for the Position Tool's stop-loss placement and the trail-flip exit condition. The gray trail visually signals when the trail is opposing the dominant Fib or Hull regime.
+
+⑥ Ultron Gate
+Logic: The regime cortex. It computes a double-smoothed EMA of hlc3 and reads its derivative. If the derivative is positive, the gate is bullish; if negative, bearish. A secondary confirmation against EMA 200 ensures the gate doesn't flip in choppy conditions.
+
+How it relates: The gate is a permission layer for the entire signal system. No signal fires unless the gate is clear in the signal's direction. It is Node 7 in the confluence score and a key input to the probabilistic fusion. It is also used to filter the CHoCH signals and the RSI Smart Signals.
+
+⑦ Liquidity Zones
+Logic: Swing highs and lows are marked with H-LIQ and L-LIQ labels, and zones are drawn around them. These are spatial memory — places where resting orders live. The script does not trade them; it remembers them.
+
+How it relates: The nearest unbroken liquidity zones are used in the Zone Confidence Engine and the probabilistic fusion. They provide a spatial context that helps the agent assess whether a move is likely to encounter resistance or support.
+
+⑧ Neural Confluence Score
+Logic: This is the 8-node discrete score. Each node is a yes/no question: Macro Hull, Fast Hull, Trail Trend, CHoCH, AOI, Momentum, Ultron Gate, Volume. The score is a count of yes answers (0–8). The Minimum Score to Trigger is configurable. The Zone Confidence Gate requires a minimum zone confidence before a CHoCH signal can trigger, preventing low-quality zones from producing signals.
+
+How it relates: This score is the primary Tier 2 judgement layer. It is used alongside the Fib Intelligence Gate (Group 17) to qualify signals. It also feeds the HUD and the alert logic.
+
+⑨ Position Tool
+Logic: The execution layer. Three entry modes are supported: Signal Change (enter on trail flip), Trail Retest (wait for a retest of the trail after a flip), and Zone Retest (wait for price to retrace into the active CHoCH zone). The TP ladder is expressed in R multiples. The script manages breakeven, TP locking, and trail-flip exits. The SL can be confirmed on close only, which prevents wick-based stop-outs.
+
+How it relates: The Position Tool only fires when Tier 2 clears. It integrates the trail (Group 5), the zones (Group 3), and the entry mode logic. It is the bridge between analysis and execution.
+
+⑩ SMC Structure
+Logic: Internal and swing structure, order blocks, fair-value gaps, premium/equilibrium/discount zones, strong/weak high/low labelling, equal high/low detection. This layer is adapted from the Smart Money Concepts indicator by LuxAlgo (see Attribution).
+
+How it relates: These elements provide additional context for the HUD and the analysis report. They are not directly used in the scoring or fusion layers but are essential for the operator's situational awareness.
+
+⑪ ICT Killzones
+Logic: Session windows: Asia, London, NY AM, LDN-NY, NY PM. These are clock-based windows, tuned to GMT+3. The active killzone is displayed in the HUD and used in the probabilistic fusion as a context node.
+
+How it relates: The killzone state influences the probabilistic fusion (Node 10) and the Zone Confidence Engine. It helps the agent understand when liquidity is likely to be high or low.
+
+⑫ RSI Smart Signals
+Logic: Rising-edge-only signals. A bullish signal requires RSI above the bullish threshold, below exhaustion, and the RSI momentum EMA rising. The signals are gated by the trail, Hull, and Fib regime. If a raw signal is gated out, it is still plotted as a gray marker, so you can see what the RSI saw even when the gates blocked it.
+
+How it relates: The RSI feeds Node 11 of the probabilistic fusion. The Smart Signals are an additional layer of confirmation that the operator can use alongside the primary confluence score.
+
+⑬ HUD
+Logic: A dashboard summarizing the entire analytical state: bull score, bear score, trail state, Ultron Gate, SMC bias, RSI, smart signal, EMA 21/55, active killzone, PDH/PDL, strong/weak high/low, spatial bias, position state, execution mode, broker/asset class, Fib regime, P(bull), P(bear), prob edge, and zone confidence.
+
+How it relates: The HUD is the operator's cockpit. It aggregates the outputs of every input group into a single, glanceable panel.
+
+⑭ Performance
+Logic: Calculation window and zone retention. On high-timeframe or long-history charts, use these to keep the script responsive. The drawing recycling system manages the 500-label / 500-box / 500-line budget automatically.
+
+How it relates: This group does not affect the analysis; it ensures the script runs smoothly on any chart.
+
+⑮ Execution Engine
+Logic: Broker context, execution mode, risk preset, custom multiplier, risk per trade, strike selection (ATM/ITM/OTM/Dynamic), ITM/OTM distance, expiry range, and scale-in count. The engine is broker-agnostic but includes logic for multiplier-contract environments and vanilla-options environments.
+
+How it relates: This group translates the analytical output into actionable trade parameters. It is the bridge between the agent's analysis and the operator's execution.
+
+⑯ Telegram Agent
+Logic: Chat ID, send triggers (session open, H1 close, H4 close, signal/trade event), memory buffer size, alert verbosity, and raw JSON payload toggle. The consolidated dispatcher sends at most one message per bar, priority-ordered.
+
+How it relates: This is the agent's voice. It narrates the analysis to an external channel so the operator can stay informed even when not watching the chart.
+
+⑰ Fib Intelligence Gate
+Logic: Regime source (LTF Only / HTF Only / Both), band filter, cooldown, soft override. The gate ensures that signals are aligned with the Fib regime — or, if the score is high enough (≥ 7), it allows a soft override, because sometimes the score knows something the regime doesn't yet.
+
+How it relates: This gate works alongside the Ultron Gate (Group 6) to filter signals. It is a critical component of the Tier 2 judgement layer and directly influences the qualification of triggers.
+
+⑱ Speculative Probabilistic Core
+Logic: The 14-node fusion layer. Enable toggle, posterior high-conviction threshold, 14 configurable weights, and sigmoid temperature. The weights determine how much each node contributes to the posterior. The temperature controls how sharp the sigmoid is.
+
+How it relates: This is Tier 2.5. It runs in parallel with the discrete score and provides a continuous measure of conviction. It is the most advanced layer of the agent and gives the operator a nuanced view of the market's probabilistic state.
+
+Becoming an Operator
+The inputs are not just settings. They are the levers of an agent. By adjusting them, you are not just changing a parameter — you are changing how the agent perceives the market. You are testing different period levels, different logic chains, and different weightings to see how they interrelate.
+
+This is what makes ULTRON a glass box augmented intelligence system. Every formula, threshold, and decision is visible. You can see exactly why a signal fired, which nodes agreed, and which did not. You are not just a user; you are an operator. You learn to tune the agent to your market, your timeframe, and your risk tolerance.
+
+The intraday framework above is not decoration. It is the workflow. You run the script on M1 and M5 for execution, you watch M15 and H1 for structure, and you hold the trade as long as the trail, hull, and Fib dominant trend remain aligned. The agent does not tell you to hold for 20 minutes. It tells you the layers are still aligned — and you keep the position until they aren't.
+
+Alerts
+Native alert conditions are provided for: Neural Long/Short Signal, Position Long/Short Entry, TP1/TP2/TP3 Hits (long and short), Long/Short Exit, Bullish/Bearish CHoCH, and Rejected Bull/Bear.
+
+For consolidated messaging, use the Telegram Agent group with a chat ID. The dispatcher sends at most one message per bar, priority-ordered: trade events first, then triggers, then informational, then blocked observations, then scale-ins. Raw JSON payloads are opt-in and intended only for external webhook consumers.
+
+
+What This Script Is Not
+It is not a strategy. There is no strategy() call, no backtest, no Strategy Tester results, no Performance Report. Any claim of backtested performance is invalid.
+
+It is not predictive. It does not know future prices. It organizes current and historical price information into observable states.
+
+It is not a black box. Every formula, threshold, weighting relationship, state transition, and decision sequence is visible in the open source.
+
+It is not machine learning. The terms "Neural" and "Speculative Probabilistic Core" are descriptive labels for a weighted fusion layer composed of bounded node outputs and sigmoid transformations. This script does not use machine learning, neural networks, deep learning, or any trained model.
+
+It is not financial advice. Nothing in this script constitutes financial, investment, trading, or other professional advice. Trading financial markets involves substantial risk. You are responsible for your own decisions and risk management.
+
+Limitations
+Repaint surface. The current bar's trail flip, CHoCH break, and close-based scoring can change until the bar closes. HTF Fib Projection redraws at barstate.islast. Alerts and gates use barstate.isconfirmed, so the signal does not repaint — but the drawing does.
+
+Compute weight. This script is heavy. Use "Calc Only Last N Bars" and "Show Last N Zones" on high-timeframe or long-history charts. Drawing budget is 500 labels / 500 boxes / 500 lines each, managed by an active-set / stored-set recycling system.
+
+Synthetic instruments. Synthetic volume data is often not meaningful. The fusion layer discounts it automatically, but the 8-node score does not. On synthetic indices, consider disabling the Volume node in the confluence score.
+
+Intraday execution. The script is designed for intraday workflows, but execution quality depends on your connection, your platform, and your discipline. The script does not place trades. It produces analysis. The execution is yours.
+
+Different instruments behave differently. This script was developed and tested on liquid markets. Evaluate it on the instruments and timeframes you intend to use it on.
+
+Attribution
+Smart Money Concepts (SMC) structural layer adapted from the publicly available "Smart Money Concepts (SMC) [LuxAlgo]" indicator. Original work credited to LuxAlgo. Any bugs or behavioural differences in this adaptation are the responsibility of the author of this script, not LuxAlgo.
+
+Hull Moving Average formulation associated with Alan Hull (HMA / EHMA / THMA).
+
+RSI and ATR methodologies associated with J. Welles Wilder.
+
+ICT concepts (market-structure terminology, killzones, liquidity, BOS/CHoCH, order blocks, FVGs, premium/discount) are standard price-action terminology. Session windows are ICT-inspired but tuned to GMT+3, not literal ICT killzone boundaries.
+
+Fibonacci ratios (0.382 / 0.5 / 0.618 / 0.786 retracement; 1.272 / 1.414 / 1.618 / 2.0 / 2.618 extension) are mathematical constants, not proprietary formulas.
+
+Multiplier-contract asset-class mapping reflects publicly documented contract limits for multiplier-style derivative products. Caps change over time; verify current limits with your broker.
+
+These references identify conceptual and methodological foundations. They do not imply endorsement, sponsorship, partnership, or affiliation with any third-party educator, author, organization, or vendor unless expressly stated.
+
+Disclaimer
+This indicator is provided for educational, analytical, and research purposes only. It does not constitute financial, investment, trading, or other professional advice. It does not guarantee accuracy, profitability, signal quality, or any specific result. Trading financial markets involves substantial risk. You are responsible for your own decisions, risk management, and evaluation of the suitability of this indicator for your individual circumstances. Past performance does not guarantee future results.
